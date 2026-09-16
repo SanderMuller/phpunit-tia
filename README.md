@@ -84,6 +84,19 @@ While a baseline will be established automatically, you may pass an environment 
 PHPUNIT_TIA_FRESH=1 phpunit ...
 ```
 
+**Note:** if your suite uses coverage targeting metadata (`#[CoversClass]`,
+`#[CoversMethod]`, and the other `#[Covers*]` attributes), you will need to record the
+baseline with PHPUnit's `--disable-coverage-targeting` option. Targeting restricts each
+test's coverage to the target it declares, so without the option TIA records only those
+edges and will skip a test when a collaborator it exercises changes:
+
+```sh
+PHPUNIT_TIA_FRESH=1 phpunit --disable-coverage-targeting
+```
+
+You only need the option when recording. Replaying works without it, and without a
+coverage driver.
+
 **Note:** running tests with the `--fail-on-skipped` or `--display-skipped` option will automatically bypass TIA's speed boost. You will need to drop these options to take full advantage of TIA.
 
 ### Debugging a test that won't skip
