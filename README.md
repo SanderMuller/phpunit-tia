@@ -86,6 +86,11 @@ PHPUNIT_TIA_FRESH=1 phpunit ...
 
 **Note:** running tests with the `--fail-on-skipped` or `--display-skipped` option will automatically bypass TIA's speed boost. You will need to drop these options to take full advantage of TIA.
 
+**Note:** a parallel runner such as ParaTest will not record a usable baseline. Each
+worker is a separate PHPUnit process writing the same graph file, so the workers
+overwrite each other and most of the recorded graph is lost. Record the baseline with a
+single process.
+
 ### Debugging a test that won't skip
 If a test keeps running when you expect TIA to skip it, pass an environment variable to have TIA explain why on STDERR, one line per test that actually ran:
 
